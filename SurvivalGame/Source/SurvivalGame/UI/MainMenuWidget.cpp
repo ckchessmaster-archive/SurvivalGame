@@ -2,10 +2,11 @@
 
 #include "MainMenuWidget.h"
 #include "Kismet/KismetSystemLibrary.h"
+#include "Kismet/GameplayStatics.h"
 
 void UMainMenuWidget::NewGame() 
 {
-
+	UGameplayStatics::OpenLevel(GetWorld(), "PrototypeWorld", true);
 }
 
 void UMainMenuWidget::LoadGame()

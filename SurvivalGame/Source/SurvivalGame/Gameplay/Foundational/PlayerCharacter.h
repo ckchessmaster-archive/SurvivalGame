@@ -28,6 +28,9 @@ protected:
 	float ZoomMultiplier;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Camera")
+	float RotateMultiplier;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Camera")
 	float MaxBoomLength;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Camera")
@@ -45,6 +48,9 @@ protected:
 
 	// Handles moving left or right
 	void MoveLeftRight(float Value);
+
+	// Handles rotating the camera
+	void Rotate(float Value);
 
 	// Handles zooming the camera in or out
 	void ZoomInOut(float Value);

@@ -15,13 +15,14 @@ APlayerCharacter::APlayerCharacter()
 	// Create the camera boom...
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
 	CameraBoom->SetupAttachment(RootComponent);
-	CameraBoom->bAbsoluteRotation = true;
+	CameraBoom->bUsePawnControlRotation = true;
+	CameraBoom->bInheritPitch = false;
+	//CameraBoom->RelativeRotation = FRotator(0.0f, -45.0f, 0.0f); // This should be set before final product release
 	CameraBoom->bDoCollisionTest = false;
 
 	// Create the camera...
 	CameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	CameraComponent->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
-	CameraComponent->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
 }
 
 // Called when the game starts or when spawned
@@ -41,6 +42,7 @@ void APlayerCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerIn
 
 	// Bind camera movement events
 	PlayerInputComponent->BindAxis("ZoomInOut", this, &APlayerCharacter::ZoomInOut);
+	PlayerInputComponent->BindAxis("Rotate", this, &APlayerCharacter::Rotate);
 }
 
 // Called every frame
@@ -70,11 +72,19 @@ void APlayerCharacter::ZoomInOut(float Value)
 {
 	if (Value != 0.0f)
 	{
-		float newLength = CameraBoom->TargetArmLength - Value;
+		float newLength = CameraBoom->TargetArmLength - (Value * ZoomMultiplier);
 		if (newLength >= MinBoomLength && newLength  <= MaxBoomLength)
 		{
 			CameraBoom->TargetArmLength = newLength;
 		}
+	}
+}
+
+void APlayerCharacter::Rotate(float Value)
+{
+	if (Value != 0.0f)
+	{
+		AddControllerYawInput(Value * RotateMultiplier);
 	}
 }
 

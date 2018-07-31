@@ -17,7 +17,6 @@ APlayerCharacter::APlayerCharacter()
 	CameraBoom->SetupAttachment(RootComponent);
 	CameraBoom->bUsePawnControlRotation = true;
 	CameraBoom->bInheritPitch = false;
-	//CameraBoom->RelativeRotation = FRotator(0.0f, -45.0f, 0.0f); // This should be set before final product release
 	CameraBoom->bDoCollisionTest = false;
 
 	// Create the camera...
@@ -34,6 +33,7 @@ void APlayerCharacter::BeginPlay()
 void APlayerCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
 {
 	// Setup gameplay key bindings
+	// (Player controller will handle UI stuff)
 	check(PlayerInputComponent);
 
 	// Bind movement events

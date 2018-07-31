@@ -43,6 +43,13 @@ protected:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	// End APawn interface
 
+public:	
+	// Sets default values for this character's properties
+	APlayerCharacter();
+
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;	
+
 	// Handles moving up or down
 	void MoveUpDown(float Value);
 
@@ -54,12 +61,4 @@ protected:
 
 	// Handles zooming the camera in or out
 	void ZoomInOut(float Value);
-
-
-public:	
-	// Sets default values for this character's properties
-	APlayerCharacter();
-
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;	
 };
